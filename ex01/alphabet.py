@@ -17,15 +17,15 @@ print('欠損文字:')
 print(ra)
 
 
-ans1 = input('欠損文字の数は？')
+ans1 = input('欠損文字の数はいくつ？')
 if int(ans1)== kes_alp:
-    print('正解です。欠損文字を答えてください。 ')
+    print('正解です！欠損文字を答えてください。 ')
     while True:
         ans2 = input('1つ目の文字は？')
         if ans2 != ra:
             print('不正解です。もう一度チャレンジしてください。')
         
-    print('正解!!!')
+    print('正解です!!!')
 else:
     print('不正解です。また、チャレンジしてください。')
 
