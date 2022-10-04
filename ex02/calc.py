@@ -10,6 +10,14 @@ def button_click(event):
     tkm.showinfo(f"{txt}",f"{txt}のボタンが押されました")
     entry.insert(tk.END,txt)
 
+def click_equal(event):
+    equal = entry.get()
+    result = eval(equal)
+    entry.delete(0,tk.END)
+    entry.insert(tk.END,result)
+    
+    
+
 root = tk.Tk()
 root.geometry("300x500")
 
@@ -30,4 +38,9 @@ for i, num in enumerate(range(9,-1, -1), 1):
 btn1 = tk.Button(root, text="+", font=("Times New Roman", 30), width=4, height=1)
 btn1.grid(row = 4, column= 1 )
 btn1.bind("<1>",button_click)
+
+btn2 = tk.Button(root, text="=", font=("Times New Roman", 30), width=4, height=1)
+btn2.grid(row = 4, column= 2 )
+btn2.bind("<1>",click_equal)
+
 root.mainloop()
