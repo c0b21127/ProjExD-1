@@ -8,6 +8,7 @@ def button_click(event):
     btn = event.widget
     txt = int(btn["text"])
     tkm.showinfo(f"{txt}",f"{txt}のボタンが押されました")
+    entry.insert(tk.END,txt)
 
 root = tk.Tk()
 root.geometry("300x500")
