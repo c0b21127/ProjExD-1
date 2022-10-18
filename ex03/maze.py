@@ -11,8 +11,10 @@ def key_up(event):
     global key
     key = ""
 
-def key_stop():
-    stop()
+def start_back(event):
+    global mx, my
+    mx , my = 1,1
+    
 
 def main_proc():
     global cx, cy
@@ -36,7 +38,7 @@ def main_proc():
             mx += 1
         if key == "Right":
             mx -= 1
-    canv.coords("tori",cx, cy,)   
+    canv.coords("tori",cx, cy)   
     root.after(100, main_proc)
 
 if __name__ == "__main__":
@@ -61,7 +63,7 @@ if __name__ == "__main__":
 
     root.bind("<KeyRelease>", key_up) #練習6
 
-    root.bind("<1>", key_stop)
+    root.bind("<1>", start_back)
 
 
     main_proc()
