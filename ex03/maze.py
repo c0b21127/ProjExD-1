@@ -2,6 +2,7 @@ from multiprocessing.resource_sharer import stop
 import tkinter as tk
 import maze_maker
 
+
 def key_down(event):
     global key
     key = event.keysym
@@ -10,6 +11,7 @@ def key_down(event):
 def key_up(event):
     global key
     key = ""
+
 
 def start_back(event): #位置の初期化
     global mx, my
@@ -41,6 +43,7 @@ def main_proc():
     canv.coords("tori",cx, cy)   
     root.after(100, main_proc)
 
+
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("迷えるこうかとん")
@@ -56,7 +59,6 @@ if __name__ == "__main__":
     mx, my = 1,1
     canv.create_image(cx, cy, image=tori, tag = "tori")
 
-     
     key = "" #グローバル変数keyは、現在押されているキーを表す変数である #練習4
 
     root.bind("<KeyPress>",key_down) #練習5
@@ -65,6 +67,6 @@ if __name__ == "__main__":
 
     root.bind("<1>", start_back) #スタートに戻る 
 
-
     main_proc()
+    
     root.mainloop()
