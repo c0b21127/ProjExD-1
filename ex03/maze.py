@@ -1,4 +1,5 @@
 import tkinter as tk
+import maze_maker
 
 def key_down(event):
     global key
@@ -39,6 +40,9 @@ if __name__ == "__main__":
     root.bind("<KeyPress>",key_down) #練習5
 
     root.bind("<KeyRelease>", key_up) #練習6
+
+    maze_list = maze_maker.make_maze(15,9)
+    maze_maker.show_maze(canv,maze_list)
 
     main_proc()
     root.mainloop()
