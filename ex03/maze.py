@@ -11,7 +11,7 @@ def key_up(event):
     global key
     key = ""
 
-def start_back(event):
+def start_back(event): #位置の初期化
     global mx, my
     mx , my = 1,1
     
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
     root.bind("<KeyRelease>", key_up) #練習6
 
-    root.bind("<1>", start_back)
+    root.bind("<1>", start_back) #スタートに戻る 
 
 
     main_proc()
