@@ -1,3 +1,4 @@
+from multiprocessing.resource_sharer import stop
 import tkinter as tk
 import maze_maker
 
@@ -10,6 +11,8 @@ def key_up(event):
     global key
     key = ""
 
+def key_stop():
+    stop()
 
 def main_proc():
     global cx, cy
@@ -45,7 +48,6 @@ if __name__ == "__main__":
 
     maze_list = maze_maker.make_maze(15,9)
     maze_maker.show_maze(canv,maze_list)
-    print(maze_list)
     
     tori = tk.PhotoImage(file="pika.png")
     cx, cy = 300, 400
@@ -58,6 +60,8 @@ if __name__ == "__main__":
     root.bind("<KeyPress>",key_down) #練習5
 
     root.bind("<KeyRelease>", key_up) #練習6
+
+    root.bind("<1>", key_stop)
 
 
     main_proc()
