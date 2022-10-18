@@ -13,14 +13,26 @@ def key_up(event):
 
 def main_proc():
     global cx, cy
+    global mx, my
     if key == "Up":
-        cy -= 20
+        my -= 1
     elif key == "Down":
-        cy += 20
+        my += 1
     elif key == "Left":
-        cx -= 20
+        mx -= 1
     elif key == "Right":
-        cx += 20   
+        mx += 1
+    if maze_list[my][mx] ==0:
+        cx, cy = mx*100 + 50, my*100 + 50   
+    else: # 壁なら
+        if key == "Up":
+            my += 1
+        if key == "Down":
+            my -= 1
+        if key == "Left":
+            mx += 1
+        if key == "Right":
+            mx -= 1
     canv.coords("tori",cx, cy)         
     root.after(100, main_proc)
 
@@ -31,8 +43,14 @@ if __name__ == "__main__":
     canv = tk.Canvas(root,width = 1500,height = 900, bg= "black")
     canv.pack()
 
+    maze_list = maze_maker.make_maze(15,9)
+    maze_maker.show_maze(canv,maze_list)
+
+    
+
     tori = tk.PhotoImage(file="fig/6.png")
     cx, cy = 300, 400
+    mx, my = 1,1
     canv.create_image(cx, cy, image=tori, tag = "tori") 
 
     key = "" #グローバル変数keyは、現在押されているキーを表す変数である #練習4
@@ -41,8 +59,6 @@ if __name__ == "__main__":
 
     root.bind("<KeyRelease>", key_up) #練習6
 
-    maze_list = maze_maker.make_maze(15,9)
-    maze_maker.show_maze(canv,maze_list)
 
     main_proc()
     root.mainloop()
