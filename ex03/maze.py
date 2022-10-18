@@ -1,4 +1,3 @@
-from multiprocessing.resource_sharer import stop
 import tkinter as tk
 import maze_maker
 
@@ -68,5 +67,5 @@ if __name__ == "__main__":
     root.bind("<1>", start_back) #スタートに戻る 
 
     main_proc()
-    
+
     root.mainloop()
