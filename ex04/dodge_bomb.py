@@ -41,7 +41,7 @@ def main():
     tori_rct = tori_sfc.get_rect()
     tori_rct.center = 900, 400
 
-    # 練習5
+    # 爆弾の表示
     bomb1_sfc = pg.Surface((20,20)) # 空のSurface
     bomb2_sfc = pg.Surface((20,20)) # 空のSurface
     bomb1_sfc.set_colorkey((0, 0, 0)) #四隅の透過
@@ -118,7 +118,6 @@ def main():
             bomb2_sfc.set_colorkey((0, 0, 0)) #四隅の透過
             
 
-        
         scrn_sfc.blit(tori_sfc, tori_rct)
         yoko1, tate1 = check_bound(bomb1_rct, scrn_rct)
         yoko2, tate2 = check_bound(bomb2_rct, scrn_rct)
@@ -131,8 +130,6 @@ def main():
         scrn_sfc.blit(bomb1_sfc,bomb1_rct) #練習5
         scrn_sfc.blit(bomb2_sfc,bomb2_rct)
         
-        
-
         # 練習8
         if tori_rct.colliderect(bomb1_rct) : # 赤色の爆弾に当たったら
             i = random.randint(0,9)
@@ -145,8 +142,6 @@ def main():
             pg.display.update()
             clock.tick(0.5)
             return
-            
-
             
         pg.display.update()
         clock.tick(1000)
