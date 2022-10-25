@@ -1,4 +1,3 @@
-from email import message
 import pygame as pg
 import sys
 from random import randint
@@ -79,40 +78,40 @@ def main():
 
         yoko1, tate1 = check_bound(tori_rct, scrn_rct)
         if yoko1 == -1:
-            if key_lst[pg.K_LEFT]: 
+            if key_lst[pg.K_LEFT]: #左キーを押したら
                 tori_rct.centerx += 1
-            if key_lst[pg.K_RIGHT]:
+            if key_lst[pg.K_RIGHT]: #左キーを押したら
                 tori_rct.centerx -= 1
         if tate1 == -1:
-            if key_lst[pg.K_UP]: 
+            if key_lst[pg.K_UP]: #上キーを押したら
                 tori_rct.centery += 1
-            if key_lst[pg.K_DOWN]:
+            if key_lst[pg.K_DOWN]: #下キーを押したら
                 tori_rct.centery -= 1 
         
         yoko2, tate2 = check_bound(tori_rct, scrn_rct)
         if yoko2 == -1:
-            if key_lst[pg.K_LEFT]: 
+            if key_lst[pg.K_LEFT]: #左キーを押したら
                 tori_rct.centerx += 1
-            if key_lst[pg.K_RIGHT]:
+            if key_lst[pg.K_RIGHT]: #左キーを押したら
                 tori_rct.centerx -= 1
         if tate2 == -1:
-            if key_lst[pg.K_UP]: 
+            if key_lst[pg.K_UP]: #上キーを押したら
                 tori_rct.centery += 1
-            if key_lst[pg.K_DOWN]:
+            if key_lst[pg.K_DOWN]: #下キーを押したら
                 tori_rct.centery -= 1 
         
-        if key_lst[pg.K_a]:
+        if key_lst[pg.K_a]: # Aキーを押したら
             vx1 = +2
             vx1 = +2
             vx2 = +2
             vy2 = +2
 
-        if key_lst[pg.K_ESCAPE]:
+        if key_lst[pg.K_ESCAPE]: # Escキーを押したら
             return   
 
         if key_lst[pg.K_w]: # 大きさの変更
             bomb1_sfc = pg.Surface((30,30)) # 空のSurface
-            bomb2_sfc = pg.Surface((30,30))
+            bomb2_sfc = pg.Surface((30,30)) # 空のSurface
             pg.draw.circle(bomb1_sfc,(255, 0, 0), (15, 15), 15)
             pg.draw.circle(bomb2_sfc,(0, 255, 0), (15, 15), 15)
             bomb1_sfc.set_colorkey((0, 0, 0)) #四隅の透過
@@ -135,12 +134,12 @@ def main():
         
 
         # 練習8
-        if tori_rct.colliderect(bomb1_rct) : # こうかとんrctが爆弾rctと重なったら
+        if tori_rct.colliderect(bomb1_rct) : # 赤色の爆弾に当たったら
             i = random.randint(0,9)
             tori_sfc = pg.image.load(f"fig/{i}.png")
             tori_sfc = pg.transform.rotozoom(tori_sfc, 0, 2.0)
 
-        if tori_rct.colliderect(bomb2_rct) :
+        if tori_rct.colliderect(bomb2_rct) : # 青色の爆弾に当たったら
             text = font1.render("GAMEOVER", True, (0,0,0))
             scrn_sfc.blit(text, [200, 400])
             pg.display.update()
