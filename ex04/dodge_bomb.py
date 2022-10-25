@@ -1,6 +1,8 @@
 import pygame as pg
 import sys
 from random import randint
+import random
+
 
 def check_bound(obj_rct, scr_rct):
     """
@@ -8,12 +10,19 @@ def check_bound(obj_rct, scr_rct):
     scr_rct:スクリーンrct
     領域内：+1/領域外:-1
     """
-    yoko, tate = +1, +1
+    yoko1, tate1 = +1, +1
     if obj_rct.left < scr_rct.left or scr_rct.right < obj_rct.right: 
-        yoko = -1
+        yoko1, yoko2 = -1, -1
     if obj_rct.top < scr_rct.top or scr_rct.bottom < obj_rct.bottom: 
-        tate = -1
-    return yoko, tate
+        tate1, tate2= -1, -1
+    return yoko1, tate1
+
+    yoko2, tate2 = +1, +1
+    if obj_rct.left < scr_rct.left or scr_rct.right < obj_rct.right: 
+        yoko2 = -1
+    if obj_rct.top < scr_rct.top or scr_rct.bottom < obj_rct.bottom: 
+        tate2 = -1
+    return yoko2, tate2
 
 
 def main():
@@ -31,14 +40,21 @@ def main():
     tori_rct.center = 900, 400
 
     # 練習5
-    bomb_sfc = pg.Surface((20,20)) # 空のSurface
-    bomb_sfc.set_colorkey((0, 0, 0)) #四隅の透過
-    pg.draw.circle(bomb_sfc,(255, 0, 0), (10, 10), 10)
-    bomb_rct = bomb_sfc.get_rect()
-    bomb_rct.centerx = randint(0, scrn_rct.width)
-    bomb_rct.centery = randint(0, scrn_rct.height)
+    bomb1_sfc = pg.Surface((20,20)) # 空のSurface
+    bomb2_sfc = pg.Surface((20,20)) # 空のSurface
+    bomb1_sfc.set_colorkey((0, 0, 0)) #四隅の透過
+    bomb2_sfc.set_colorkey((0, 0, 0)) #四隅の透過
+    pg.draw.circle(bomb1_sfc,(255, 0, 0), (10, 10), 10)
+    pg.draw.circle(bomb2_sfc,(0, 255, 0), (10, 10), 10)
+    bomb1_rct = bomb1_sfc.get_rect()
+    bomb2_rct = bomb2_sfc.get_rect()
+    bomb1_rct.centerx = randint(0, scrn_rct.width)
+    bomb1_rct.centery = randint(0, scrn_rct.height)
+    bomb2_rct.centerx = randint(0, scrn_rct.width)
+    bomb2_rct.centery = randint(0, scrn_rct.height)
     
-    vx, vy = +2, +2 # 練習6
+    vx1, vy1 = +1, +1 # 練習6
+    vx2, vy2 = +1, +1
     clock = pg.time.Clock()
     # 練習2
     while True:
@@ -58,26 +74,68 @@ def main():
         if key_lst[pg.K_RIGHT] : #横座標+1
             tori_rct.centerx += 2
 
-        yoko, tate = check_bound(tori_rct, scrn_rct)
-        if yoko == -1:
+        yoko1, tate1 = check_bound(tori_rct, scrn_rct)
+        if yoko1 == -1:
             if key_lst[pg.K_LEFT]: 
                 tori_rct.centerx += 1
             if key_lst[pg.K_RIGHT]:
                 tori_rct.centerx -= 1
-        if tate == -1:
+        if tate1 == -1:
             if key_lst[pg.K_UP]: 
                 tori_rct.centery += 1
             if key_lst[pg.K_DOWN]:
                 tori_rct.centery -= 1 
+        
+        yoko2, tate2 = check_bound(tori_rct, scrn_rct)
+        if yoko2 == -1:
+            if key_lst[pg.K_LEFT]: 
+                tori_rct.centerx += 1
+            if key_lst[pg.K_RIGHT]:
+                tori_rct.centerx -= 1
+        if tate2 == -1:
+            if key_lst[pg.K_UP]: 
+                tori_rct.centery += 1
+            if key_lst[pg.K_DOWN]:
+                tori_rct.centery -= 1 
+        
+        if key_lst[pg.K_a]:
+            vx1 = +2
+            vx1 = +2
+            vx2 = +2
+            vy2 = +2
+
+        if key_lst[pg.K_w]: # 大きさの変更
+            bomb1_sfc = pg.Surface((30,30)) # 空のSurface
+            bomb2_sfc = pg.Surface((30,30))
+            pg.draw.circle(bomb1_sfc,(255, 0, 0), (15, 15), 15)
+            pg.draw.circle(bomb2_sfc,(0, 255, 0), (15, 15), 15)
+            bomb1_sfc.set_colorkey((0, 0, 0)) #四隅の透過
+            bomb2_sfc.set_colorkey((0, 0, 0)) #四隅の透過
+            
 
         
         scrn_sfc.blit(tori_sfc, tori_rct)
+        yoko1, tate1 = check_bound(bomb1_rct, scrn_rct)
+        yoko2, tate2 = check_bound(bomb2_rct, scrn_rct)
+        vx1 *= yoko1
+        vy1 *= tate1
+        vx2 *= yoko2
+        vy2 *= tate2
+        bomb1_rct.move_ip(vx1, vy1) #練習6
+        bomb2_rct.move_ip(vx2, vy2)
+        scrn_sfc.blit(bomb1_sfc,bomb1_rct) #練習5
+        scrn_sfc.blit(bomb2_sfc,bomb2_rct)
+        
+        
 
-        yoko, tate = check_bound(bomb_rct, scrn_rct)
-        vx *= yoko
-        vy *= tate
-        bomb_rct.move_ip(vx, vy) #練習6
-        scrn_sfc.blit(bomb_sfc,bomb_rct) #練習5
+        # 練習8
+        if tori_rct.colliderect(bomb1_rct) or tori_rct.colliderect(bomb2_rct): # こうかとんrctが爆弾rctと重なったら
+            i = random.randint(0,9)
+            tori_sfc = pg.image.load(f"fig/{i}.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc, 0, 2.0)
+            
+
+            
         pg.display.update()
         clock.tick(1000)
 
