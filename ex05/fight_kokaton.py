@@ -134,7 +134,6 @@ def main():
     pg.display.update()
     sleep(1) #1杪のタイムラグ
 
-
     clock = pg.time.Clock() # 練習1
     Music("ex05\data\house_lo.mp3")
     while True:
@@ -147,16 +146,13 @@ def main():
         # 練習4
         kkt.update(scr)
 
-        # 練習7
         bkd1.update(scr)
 
         bkd2.update(scr)
 
-
         # 練習8
         if kkt.rct.colliderect(bkd1.rct) or kkt.rct.colliderect(bkd2.rct): # こうかとんrctが爆弾rctと重なったら
             return
-
 
         pg.display.update() #練習2
         clock.tick(1000)
