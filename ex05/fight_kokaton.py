@@ -46,7 +46,7 @@ class Bird:
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
-class Bomb1:
+class Bomb1: # 赤色の爆弾の追加
     def __init__(self, color, radius, vxy, scr:Screen):
         self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
@@ -67,7 +67,7 @@ class Bomb1:
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
-class Bomb2:
+class Bomb2: #緑色の爆弾の追加
     def __init__(self, color, radius, vxy, scr:Screen):
         self.sfc = pg.Surface((radius*3, radius*3)) # 空のSurface
         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
@@ -86,6 +86,7 @@ class Bomb2:
         self.vx *= yoko
         self.vy *= tate
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct
+
 
 class Music:
     def __init__(self,BGM):
@@ -131,7 +132,7 @@ def main():
     txt = fonto.render(str(tmr), True, RED)
     scr.sfc.blit(txt, (725, 450))
     pg.display.update()
-    sleep(1)
+    sleep(1) #1杪のタイムラグ
 
 
     clock = pg.time.Clock() # 練習1
