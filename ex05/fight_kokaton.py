@@ -46,7 +46,7 @@ class Bird:
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
-class Bomb1: # 赤色の爆弾の追加
+class Bomb1: 
     def __init__(self, color, radius, vxy, scr:Screen):
         self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
@@ -67,7 +67,7 @@ class Bomb1: # 赤色の爆弾の追加
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
-class Bomb2: #緑色の爆弾の追加
+class Bomb2: #緑色の爆弾の追加クラス
     def __init__(self, color, radius, vxy, scr:Screen):
         self.sfc = pg.Surface((radius*3, radius*3)) # 空のSurface
         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
@@ -88,7 +88,7 @@ class Bomb2: #緑色の爆弾の追加
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct
 
 
-class Music:
+class Music: #音楽クラス
     def __init__(self,BGM):
         pg.mixer.init(frequency = 44100)    # 初期設定
         pg.mixer.music.load(BGM)     # 音楽ファイルの読み込み
@@ -98,7 +98,20 @@ class Music:
                 pg.mixer.music.stop()
                 return
 
+
+class Text: # GAMEOVERの表示用クラス
+
+    def __init__(self,text,color,size):
+        self.text = text
+        self.color = color
+        self.size = size
     
+    def blit(self, scr:Screen):
+        font = pg.font.Font(None,300)
+        t = font.render(self.text, True, self.color)
+        scr.sfc.blit(t, self.size)
+
+
 def check_bound(obj_rct, scr_rct):
     """
     obj_rct:こうかとんrct, または, 爆弾rct
@@ -126,6 +139,7 @@ def main():
 
     bkd2 = Bomb2((0, 255, 0), 20, (+1, +1), scr)
 
+    # クラスじゃないけど追加
     fonto = pg.font.Font(None, 80)
     tmr = "START"
     RED = ("red")
@@ -133,6 +147,9 @@ def main():
     scr.sfc.blit(txt, (725, 450))
     pg.display.update()
     sleep(1) #1杪のタイムラグ
+
+     # 追加機能
+    tex = Text("GAMEOVER",(0,0,0),(200,400))
 
     clock = pg.time.Clock() # 練習1
     Music("ex05\data\house_lo.mp3")
@@ -143,18 +160,19 @@ def main():
             if event.type == pg.QUIT:
                 return
 
-        # 練習4
         kkt.update(scr)
 
         bkd1.update(scr)
 
         bkd2.update(scr)
 
-        # 練習8
         if kkt.rct.colliderect(bkd1.rct) or kkt.rct.colliderect(bkd2.rct): # こうかとんrctが爆弾rctと重なったら
+            tex.blit(scr)
+            pg.display.update()
+            sleep(3)
             return
 
-        pg.display.update() #練習2
+        pg.display.update() 
         clock.tick(1000)
 
 
