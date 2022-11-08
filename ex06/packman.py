@@ -32,12 +32,12 @@ def main():
 
     input_key()
 
-    
 
 def move_bomb(): # 動く敵
     ene =  pygame.image.load("enemy.png")
     surface.blit(ene,(160,120))
     pygame.display.update()
+
 
 def draw_maze():  #マップ表示
     ### 座標初期化
@@ -58,6 +58,7 @@ def draw_maze():  #マップ表示
             x = 0
             y += 1
     pygame.display.update()
+
 
 def input_key(): # キャラの描画とキーの移動
  
@@ -132,7 +133,6 @@ def input_key(): # キャラの描画とキーの移動
                     if (now_y < HEIGHT - B_SIZE) and (MAP[row+1][col] != 0):
                         row += 1
                         now_y += M_DOT       
-
 
 
 def exit():
