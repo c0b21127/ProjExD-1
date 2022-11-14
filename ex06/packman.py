@@ -6,19 +6,7 @@ import pygame as pg
 import random
 
 
-WIDTH  = 440    # 画面横サイズ
-HEIGHT = 280    # 画面縦サイズ
-B_SIZE = 40   # 辺長
-M_SIZE = 20   # 半径
-M_DOT  = 40   # 移動ドット
-W_TIME = 20   # 待ち時間
-F_SIZE = 60   # フォントサイズ
-#enemy
-enemyImage = pg.transform.scale(pg.image.load('fig/goast.png'), (60,60)) 
-enemy1X, enemy1Y = 225, 100
-enemy2X, enemy2Y = 150, 200
-enemyV = 2
-enemy2V = 2
+
 
 clock = pg.time.Clock()
 surface = pg.display.set_mode((WIDTH, HEIGHT))
