@@ -13,6 +13,7 @@ M_SIZE = 20   # 半径
 M_DOT  = 40   # 移動ドット
 W_TIME = 20   # 待ち時間
 F_SIZE = 60   # フォントサイズ
+
 #enemy
 enemyImage = pg.transform.scale(pg.image.load('fig/goast.png'), (60,60)) 
 enemy1X, enemy1Y = 225, 100
@@ -22,6 +23,7 @@ enemy2V = 2
 
 clock = pg.time.Clock()
 surface = pg.display.set_mode((WIDTH, HEIGHT))
+
 
 ####### 0 1 2 3 4 5 6 7 8 9 10  #####
 MAP = [
@@ -33,10 +35,12 @@ MAP = [
         [1,0,1,0,1,0,1,0,1,0,1],   # 5
         [1,1,1,1,1,1,1,1,1,1,2]]   # 6
 
+
 def main():
     pg.init()
     font = pg.font.Font(None, F_SIZE)
     input_key()
+
 
 def enemy(x, y):
     surface.blit(enemyImage, (x, y))
@@ -177,6 +181,7 @@ def input_key(): # キャラの描画とキーの移動
         pg.display.update()
         clock.tick(60)
     exit()
+
 
 ''''''
 def exit():
