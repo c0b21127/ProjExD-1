@@ -130,15 +130,7 @@ def input_key(): # キャラの描画とキーの移動
             surface.fill((0,0,0))
             surface.blit(text, [140,120])
  
-        ### 未ゴール
-        if e_flag == 0:
- 
-            ### 移動キャラクター描画
-            pg.draw.circle(surface, (255,0,0), (now_x,now_y), M_SIZE, 0)
- 
-            ### 移動後通路の色に戻す
-            if now_x != bak_x or now_y != bak_y:
-                pg.draw.circle(surface, (224,224,224), (bak_x,bak_y), M_SIZE, 0)
+      
  
         ### 画面再描画
         #pygame.display.update()
