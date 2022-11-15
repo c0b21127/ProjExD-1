@@ -157,6 +157,9 @@ def input_key(): # キャラの描画とキーの移動
             ### ゴール描画
             surface.fill((0,0,0))
             surface.blit(text, [140,120])
+            pg.display.update()
+            sleep(3)
+            exit()
  
         ### 未ゴール
         if e_flag == 0:
@@ -202,6 +205,7 @@ def input_key(): # キャラの描画とキーの移動
         enemy(enemy1X, enemy1Y)
         enemy(enemy2X, enemy2Y)
         hantei(now_x, now_y, enemy1X, enemy1Y)
+        hantei(now_x, now_y, enemy2X, enemy2Y)
         pg.display.update()
         clock.tick(60)
     exit()
