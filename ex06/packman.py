@@ -99,6 +99,7 @@ def hantei(p_x, p_y, e_x, e_y):
             or (p_x-40 < e_x) and (e_x < p_x) and (p_y-40 < e_y) and (e_y < p_y)):
         font = pg.font.SysFont(None, 80)
         end_message = font.render("Game Over", False, (50, 0, 255))
+        surface.fill((0,0,0))
         surface.blit(end_message, (60, 70))
         #pg.time.wait(1000)
         running = False
