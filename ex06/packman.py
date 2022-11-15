@@ -186,5 +186,3 @@ def exit():
 
 if __name__ == "__main__":
     main()
-    #ずっくんはおっぱいが成人
-#asdfghjkl
