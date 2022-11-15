@@ -22,6 +22,31 @@ enemy2X, enemy2Y = 150, 200
 enemyV = 2
 enemy2V = 2
 
+
+class Screen:
+    def __init__(self, title, wh,bgimg):
+        pg.display.set_caption(title) #タイトル
+        self.sfc = pg.display.set_mode(wh) #画面の大きさ(1600, 900)
+        self.rct = self.sfc.get_rect()
+        self.bgi_sfc = pg.image.load(bgimg) #背景
+        self.bgi_rct = self.bgi_sfc.get_rect()
+
+    def blit(self):
+        self.sfc.blit(self.bgi_sfc, self.bgi_rct)
+
+class Text:# テキストを出力させるクラス
+
+    def __init__(self,text,color,basyo):
+        self.text = text
+        self.color = color
+        self.size = basyo
+    
+    def blit(self, scr:Screen):
+        font = pg.font.Font(None,300)
+        t = font.render(self.text, True, self.color)
+        scr.sfc.blit(t, self.size)
+
+
 clock = pg.time.Clock()
 surface = pg.display.set_mode((WIDTH, HEIGHT))
 
@@ -46,12 +71,6 @@ def enemy(x, y):
     surface.blit(enemyImage, (x, y))
 
 
-'''
-def move_bomb(): # 動く敵
-    ene =  pygame.image.load("fig/8.png")
-    surface.blit(ene,(160,120))
-    pygame.display.update()
-'''
 
 def draw_maze():  #マップ表示
     ### 座標初期化
