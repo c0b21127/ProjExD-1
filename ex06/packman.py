@@ -4,7 +4,7 @@ from tkinter import font
 from pygame.locals import *
 import pygame as pg
 import random
-
+from time import sleep
 
 
 WIDTH  = 440    # 画面横サイズ
@@ -101,8 +101,11 @@ def hantei(p_x, p_y, e_x, e_y):
         end_message = font.render("Game Over", False, (50, 0, 255))
         surface.fill((0,0,0))
         surface.blit(end_message, (60, 70))
+        pg.display.update()
         #pg.time.wait(1000)
         running = False
+        sleep(3)
+        exit()
 
 
 def input_key(): # キャラの描画とキーの移動
