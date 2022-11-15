@@ -6,6 +6,7 @@ import pygame as pg
 import random
 
 
+
 WIDTH  = 440    # 画面横サイズ
 HEIGHT = 280    # 画面縦サイズ
 B_SIZE = 40   # 辺長
@@ -15,7 +16,7 @@ W_TIME = 20   # 待ち時間
 F_SIZE = 60   # フォントサイズ
 
 #enemy
-enemyImage = pg.transform.scale(pg.image.load('fig/goast.png'), (60,60)) 
+enemyImage = pg.transform.scale(pg.image.load('fig/enemy.png'), (60,60)) 
 enemy1X, enemy1Y = 225, 100
 enemy2X, enemy2Y = 150, 200
 enemyV = 2
@@ -26,8 +27,7 @@ surface = pg.display.set_mode((WIDTH, HEIGHT))
 
 
 ####### 0 1 2 3 4 5 6 7 8 9 10  #####
-MAP = [
-        [1,1,1,1,1,1,1,1,1,1,1],   # 0
+MAP = [ [1,1,1,1,1,1,1,1,1,1,1],   # 0
         [1,0,1,0,1,0,1,0,1,0,1],   # 1
         [1,1,1,1,1,1,1,1,1,1,1],   # 2
         [1,0,1,0,1,0,1,0,1,0,1],   # 3
@@ -117,7 +117,7 @@ def input_key(): # キャラの描画とキーの移動
 
 
         ### ゴール確認
-        if MAP[row][col] == 3:
+        if MAP[row][col] == 2:
  
             ### 初回のみ
             if e_flag == 0:
@@ -128,6 +128,7 @@ def input_key(): # キャラの描画とキーの移動
                 e_flag = 1
  
             ### テキスト設定
+            font = pg.font.SysFont(None, 80)
             text = font.render("GOAL!", True, (224,224,255))
  
             ### ゴール描画
