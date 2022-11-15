@@ -16,7 +16,7 @@ W_TIME = 20   # 待ち時間
 F_SIZE = 60   # フォントサイズ
 
 #enemy
-enemyImage = pg.transform.scale(pg.image.load('fig/enemy.png'), (60,60)) 
+enemyImage = pg.transform.scale(pg.image.load('ex06/goast.png'), (60,60)) 
 enemy1X, enemy1Y = 225, 100
 enemy2X, enemy2Y = 150, 200
 enemyV = 2
