@@ -13,6 +13,29 @@ M_DOT  = 40   # 移動ドット
 W_TIME = 20   # 待ち時間
 F_SIZE = 60   # フォントサイズ
 
+class Screen:
+    def __init__(self, title, wh,bgimg):
+        pg.display.set_caption(title) #タイトル
+        self.sfc = pg.display.set_mode(wh) #画面の大きさ(1600, 900)
+        self.rct = self.sfc.get_rect()
+        self.bgi_sfc = pg.image.load(bgimg) #背景
+        self.bgi_rct = self.bgi_sfc.get_rect()
+
+    def blit(self):
+        self.sfc.blit(self.bgi_sfc, self.bgi_rct)
+
+class Text:# テキストを出力させるクラス
+
+    def __init__(self,text,color,basyo):
+        self.text = text
+        self.color = color
+        self.size = basyo
+    
+    def blit(self, scr:Screen):
+        font = pg.font.Font(None,300)
+        t = font.render(self.text, True, self.color)
+        scr.sfc.blit(t, self.size)
+
 
 ####### 0 1 2 3 4 5 6 7 8 9 10  #####
 MAP = [[1,1,1,1,1,1,1,1,1,1,1],   # 0
@@ -34,7 +57,7 @@ def main():
 
 
 def move_bomb(): # 動く敵
-    ene =  pygame.image.load("enemy.png")
+    ene =  pygame.image.load("fig/0.png")
     surface.blit(ene,(160,120))
     pygame.display.update()
 
@@ -86,11 +109,8 @@ def input_key(): # キャラの描画とキーの移動
                 e_flag = 1
  
             ### テキスト設定
-            text = font.render("GOAL!", True, (224,224,255))
- 
-            ### ゴール描画
-            surface.fill((0,0,0))
-            surface.blit(text, [140,120])
+            gol = Text("GOAL!",(224,224,255),(200,400))
+            over = Text("GAMEOVER",(255,255,255),(200,400))
  
         ### 未ゴール
         if e_flag == 0:
