@@ -1,11 +1,9 @@
 #from tkinter import font
 import sys
-from tkinter import font
 from pygame.locals import *
 import pygame as pg
 import random
-from time import sleep
-
+form time import sleep
 
 WIDTH  = 440    # 画面横サイズ
 HEIGHT = 280    # 画面縦サイズ
@@ -14,45 +12,19 @@ M_SIZE = 20   # 半径
 M_DOT  = 40   # 移動ドット
 W_TIME = 20   # 待ち時間
 F_SIZE = 60   # フォントサイズ
-
 #enemy
-enemyImage = pg.transform.scale(pg.image.load('ex06/goast.png'), (60,60)) 
+enemyImage = pg.transform.scale(pg.image.load('fig/goast.png'), (60,60)) 
 enemy1X, enemy1Y = 225, 100
 enemy2X, enemy2Y = 150, 200
 enemyV = 2
 enemy2V = 2
 
-
-class Screen:
-    def __init__(self, title, wh,bgimg):
-        pg.display.set_caption(title) #タイトル
-        self.sfc = pg.display.set_mode(wh) #画面の大きさ(1600, 900)
-        self.rct = self.sfc.get_rect()
-        self.bgi_sfc = pg.image.load(bgimg) #背景
-        self.bgi_rct = self.bgi_sfc.get_rect()
-
-    def blit(self):
-        self.sfc.blit(self.bgi_sfc, self.bgi_rct)
-
-class Text:# テキストを出力させるクラス
-
-    def __init__(self,text,color,basyo):
-        self.text = text
-        self.color = color
-        self.size = basyo
-    
-    def blit(self, scr:Screen):
-        font = pg.font.Font(None,300)
-        t = font.render(self.text, True, self.color)
-        scr.sfc.blit(t, self.size)
-
-
 clock = pg.time.Clock()
 surface = pg.display.set_mode((WIDTH, HEIGHT))
 
-
 ####### 0 1 2 3 4 5 6 7 8 9 10  #####
-MAP = [ [1,1,1,1,1,1,1,1,1,1,1],   # 0
+MAP = [
+        [1,1,1,1,1,1,1,1,1,1,1],   # 0
         [1,0,1,0,1,0,1,0,1,0,1],   # 1
         [1,1,1,1,1,1,1,1,1,1,1],   # 2
         [1,0,1,0,1,0,1,0,1,0,1],   # 3
@@ -60,17 +32,21 @@ MAP = [ [1,1,1,1,1,1,1,1,1,1,1],   # 0
         [1,0,1,0,1,0,1,0,1,0,1],   # 5
         [1,1,1,1,1,1,1,1,1,1,2]]   # 6
 
-
 def main():
     pg.init()
     font = pg.font.Font(None, F_SIZE)
     input_key()
 
-
 def enemy(x, y):
     surface.blit(enemyImage, (x, y))
 
 
+'''
+def move_bomb(): # 動く敵
+    ene =  pygame.image.load("fig/8.png")
+    surface.blit(ene,(160,120))
+    pygame.display.update()
+'''
 
 def draw_maze():  #マップ表示
     ### 座標初期化
@@ -93,16 +69,15 @@ def draw_maze():  #マップ表示
 
 def hantei(p_x, p_y, e_x, e_y):
     global running
-    if ((p_x-40 < e_x+30) and (e_x+30 < p_x) and (p_y-40 < e_y+30) and (e_y+30 < p_y)
-            or (p_x-40 < e_x) and (e_x < p_x) and (p_y-40 < e_y+30) and (e_y+30 < p_y)
-            or (p_x-40 < e_x+30) and (e_x+30 < p_x) and (p_y-40 < e_y) and (e_y < p_y)
-            or (p_x-40 < e_x) and (e_x < p_x) and (p_y-40 < e_y) and (e_y < p_y)):
+    if ((p_x-40 < e_x+30 and e_x+30 < p_x and p_y-40 < e_y+30 and e_y+30 < p_y)
+            or (p_x-40 < e_x and e_x < p_x and p_y-40 < e_y+30 and e_y+30 < p_y)
+            or (p_x-40 < e_x+30 and e_x+30 < p_x and p_y-40 < e_y and e_y < p_y)
+            or (p_x-40 < e_x and e_x < p_x and p_y-40 < e_y and e_y < p_y))
         font = pg.font.SysFont(None, 80)
         end_message = font.render("Game Over", False, (50, 0, 255))
-        surface.fill((0,0,0))
         surface.blit(end_message, (60, 70))
-        pg.display.update()
         #pg.time.wait(1000)
+        pg.display.update()
         running = False
         sleep(3)
         exit()
@@ -140,7 +115,7 @@ def input_key(): # キャラの描画とキーの移動
 
 
         ### ゴール確認
-        if MAP[row][col] == 2:
+        if MAP[row][col] == 3:
  
             ### 初回のみ
             if e_flag == 0:
@@ -151,15 +126,11 @@ def input_key(): # キャラの描画とキーの移動
                 e_flag = 1
  
             ### テキスト設定
-            font = pg.font.SysFont(None, 80)
             text = font.render("GOAL!", True, (224,224,255))
  
             ### ゴール描画
             surface.fill((0,0,0))
             surface.blit(text, [140,120])
-            pg.display.update()
-            sleep(3)
-            exit()
  
         ### 未ゴール
         if e_flag == 0:
@@ -205,11 +176,9 @@ def input_key(): # キャラの描画とキーの移動
         enemy(enemy1X, enemy1Y)
         enemy(enemy2X, enemy2Y)
         hantei(now_x, now_y, enemy1X, enemy1Y)
-        hantei(now_x, now_y, enemy2X, enemy2Y)
         pg.display.update()
         clock.tick(60)
     exit()
-
 
 ''''''
 def exit():
